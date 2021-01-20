@@ -23,30 +23,30 @@
     <security:http pattern="/login.html" security="none"/>
 
 <!--  拦截规则  -->
-    <security:http auto-config="true" use-expressions="true">
-        <!--需要登陆才可以访问-->
-        <security:intercept-url pattern="/**" access="isAuthenticated()"/>
-        <security:form-login login-page="/login.html"
-                             username-parameter="username"
-                             password-parameter="password"
-                             login-processing-url="/login.do"
-                             authentication-failure-url="/login.html"
-                             default-target-url="/pages/main.html"
-                             always-use-default-target="true"
-        />
-    <!--  嵌套文档的处理
-        policy: SAMEORIGIN 2个页面都是同一个网站就可以访问
-                ALLOW_FROM 指定哪些页面可以访问
-                DENY   拒绝
-      -->
-        <security:headers>
-            <security:frame-options policy="SAMEORIGIN"/>
-        </security:headers>
-    <!--  关闭跨域访问控制  -->
-        <security:csrf disabled="true"/>
-    <!--  退出登陆配置  -->
-        <security:logout invalidate-session="true" logout-url="/logout.do" logout-success-url="/login.html"/>
-    </security:http>
+<!--    <security:http auto-config="true" use-expressions="true">-->
+<!--        &lt;!&ndash;需要登陆才可以访问&ndash;&gt;-->
+<!--        <security:intercept-url pattern="/**" access="isAuthenticated()"/>-->
+<!--        <security:form-login login-page="/login.html"-->
+<!--                             username-parameter="username"-->
+<!--                             password-parameter="password"-->
+<!--                             login-processing-url="/login.do"-->
+<!--                             authentication-failure-url="/login.html"-->
+<!--                             default-target-url="/pages/main.html"-->
+<!--                             always-use-default-target="true"-->
+<!--        />-->
+<!--    &lt;!&ndash;  嵌套文档的处理-->
+<!--        policy: SAMEORIGIN 2个页面都是同一个网站就可以访问-->
+<!--                ALLOW_FROM 指定哪些页面可以访问-->
+<!--                DENY   拒绝-->
+<!--      &ndash;&gt;-->
+<!--        <security:headers>-->
+<!--            <security:frame-options policy="SAMEORIGIN"/>-->
+<!--        </security:headers>-->
+<!--    &lt;!&ndash;  关闭跨域访问控制  &ndash;&gt;-->
+<!--        <security:csrf disabled="true"/>-->
+<!--    &lt;!&ndash;  退出登陆配置  &ndash;&gt;-->
+<!--        <security:logout invalidate-session="true" logout-url="/logout.do" logout-success-url="/login.html"/>-->
+<!--    </security:http>-->
 
     <!--注解权限控制-->
     <security:global-method-security pre-post-annotations="enabled"/>

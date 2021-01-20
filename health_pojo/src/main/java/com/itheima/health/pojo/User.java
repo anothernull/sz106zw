@@ -9,6 +9,7 @@ import java.util.Set;
  * 用户
  */
 public class User implements Serializable{
+
     private Integer id; // 主键
     private Date birthday; // 生日
     private String gender; // 性别
@@ -17,7 +18,16 @@ public class User implements Serializable{
     private String remark; // 备注
     private String station; // 状态
     private String telephone; // 联系电话
+    private int isShow;//用户是否存在
     private Set<Role> roles = new HashSet<Role>(0);//对应角色集合
+
+    public int getIsShow() {
+        return isShow;
+    }
+
+    public void setIsShow(int isShow) {
+        this.isShow = isShow;
+    }
 
     public Integer getId() {
         return id;

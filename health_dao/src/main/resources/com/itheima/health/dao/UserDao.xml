@@ -26,4 +26,57 @@
             </collection>
         </collection>
     </resultMap>
+
+    <insert id="addUser" parameterType="user" keyProperty="id" useGeneratedKeys="true">
+        insert into t_user (birthday,gender,username,password,remark,station,telephone, isShow)
+                values (#{birthday}, #{gender}, #{username}, #{password}, #{remark}, #{station}, #{telephone}, #{isShow});
+    </insert>
+
+    <insert id="addUserRole" parameterType="int">
+        insert into t_user_role (user_id, role_id) values (#{userId}, #{roleId});
+    </insert>
+
+    <select id="findAll" resultType="user" >
+        select * from t_user;
+    </select>
+
+    <select id="findByCondition" parameterType="string" resultType="user">
+        select * From t_user
+        <where>
+            <if test="value !=null and value.length>0">
+                birthday like #{queryString} or gender like #{queryString} or username like #{queryString}or telephone like #{queryString}
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" parameterType="int" resultMap="userRole">
+        select id, birthday, gender, username, remark, station, telephone, role_id from t_user u left join t_user_role ur
+        on u.id = ur.user_id where u.id = #{id}
+    </select>
+    <resultMap id="userRole" type="com.itheima.health.pojo.User" autoMapping="true" >
+        <id column="id" property="id"/>
+        <collection property="roles" ofType="role" autoMapping="true">
+            <id property="id" column="role_id"/>
+        </collection>
+    </resultMap>
+
+    <update id="update" parameterType="user">
+        update t_user set
+        birthday = #{birthday},
+        gender = #{gender},
+        username = #{username},
+        password = #{password},
+        remark = #{remark},
+        station = #{station},
+        telephone = #{telephone}
+        where id = #{id};
+    </update>
+
+    <update id="updateUserRole" parameterType="int">
+        update t_user_role set role_id = #{roleId} where user_id = #{userId};
+    </update>
+
+    <update id="delete" parameterType="int">
+        update t_user set isShow = 0 where id = #{id};
+    </update>
 </mapper>
